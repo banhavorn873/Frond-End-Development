@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BR PHONE SHOP</title>
+
+  <!-- Icons Line Awesome -->
+  <link rel="stylesheet"
+    href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #faf9f6;
+      color: #2b2b2b;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      width: 100%;
+      background-color: #ffffff;
+      box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
+      padding: 16px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1a1a1a;
+      text-decoration: none;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      flex: 1;
+      margin-left: 0;
+    }
+
+    .links {
+      list-style: none;
+      gap: 25px;
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* CSS សម្រាប់ Icon & Badge */
+    .icon {
+      display: flex;
+      gap: 20px;
+      font-size: 22px;
+      color: #2b2b2b;
+      cursor: pointer;
+      flex: 1;
+      justify-content: flex-end;
+      margin-right: 0;
+      align-items: center;
+    }
+
+    .icon-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #2b2b2b;
+      text-decoration: none;
+    }
+
+    .count {
+      position: absolute;
+      top: -6px;
+      right: -8px;
+      background-color: #ff0000;
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: bold;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .links a {
+      text-decoration: none;
+      color: #555;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .links a:hover {
+      color: #c82727;
+    }
+
+    .links li {
+      position: relative;
+    }
+
+    .lang-flag {
+      width: 20px;
+      height: 14px;
+      object-fit: cover;
+      border-radius: 2px;
+      margin-right: 4px;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #ffffff;
+      min-width: 160px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      padding: 8px 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .links li:hover .dropdown {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .dropdown ul {
+      display: flex;
+      flex-direction: column;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .dropdown ul li a {
+      padding: 9px 12px;
+      display: flex;
+      align-items: center;
+      color: #333333;
+      font-size: 15px;
+      text-decoration: none;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .dropdown ul li a:hover {
+      background-color: #f0f3f1;
+      color: #c82727;
+    }
+
+    .slide {
+      width: 100%;
+      margin: 25px auto 14px auto;
+      border-radius: 12px;
+      margin-top: 20px;
+      overflow: hidden;
+    }
+
+    .name-brand {
+      font-size: 30px;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 32px;
+      font-weight: 600;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 25px;
+      width: 100%;
+      height: auto;
+    }
+
+    .product-card {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #eaeaea;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      padding: 0px 0px 20px 0px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+      border-color: #d8e2dc;
+    }
+
+    .image-container {
+      max-width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .discount {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: #c82727;
+      color: #ffffff;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .like,
+    .eye-btn {
+      position: absolute;
+      right: 10px;
+      background: #ffffff;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: background 0.2s, opacity 0.3s ease, transform 0.3s ease, color 0.2s ease;
+    }
+
+    .like {
+      top: 10px;
+    }
+
+    .eye-btn {
+      top: 48px;
+    }
+
+    .like i,
+    .eye-btn i {
+      font-size: 18px;
+      color: #666;
+      transition: color 0.2s;
+    }
+
+    .like:hover i,
+    .eye-btn:hover i {
+      color: #c82727;
+    }
+
+    .product-card:hover .discount,
+    .product-card:hover .like,
+    .product-card:hover .eye-btn {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .brand {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #c74141;
+    }
+
+    .title {
+      width: 90%;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #222222;
+      line-height: 1.4;
+      min-height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .action-button {
+      margin-top: auto;
+      background-color: #1a1a1a;
+      color: #ffffff;
+      border: none;
+      padding: 10px 16px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 85%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.2s ease;
+    }
+
+    .action-button:hover {
+      background-color: #b51a09;
+    }
+
+    .site-footer {
+      background-color: #ffffff;
+      padding: 40px 20px 25px 20px;
+      border-top: 1px solid #e2e8e4;
+      margin-top: 50px;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .footer-logo h3 {
+      margin-top: 30%;
+      text-transform: uppercase;
+      font-size: 22px;
+      font-weight: bold;
+      color: #1a1a1a;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-column {
+      margin-top: 10px;
+    }
+
+    .footer-column h3 {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #c82727;
+      margin-bottom: 15px;
+    }
+
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-column a {
+      color: #444444;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s ease;
+    }
+
+    .footer-column a:hover {
+      color: #c82727;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      color: #777777;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #e0e5e1;
+      font-size: 14px;
+      margin-bottom: -19px;
+    }
+
+    @media (min-width: 481px) and (max-width: 1279px) {
+      .header {
+        padding: 14px 20px;
+        gap: 15px;
+      }
+
+      .logo {
+        font-size: 18px;
+      }
+
+      .links {
+        gap: 15px;
+      }
+
+      .links a {
+        font-size: 0.85rem;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+
+      .footer-logo h3 {
+        margin-top: 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        width: 95%;
+      }
+
+      .header {
+        flex-direction: column;
+        align-items: center;
+        padding: 12px 15px;
+        gap: 12px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .logo {
+        font-size: 16px;
+        text-align: center;
+      }
+
+      .links {
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .links a {
+        font-size: 0.8rem;
+      }
+
+      .icon {
+        justify-content: center;
+      }
+
+      .name-brand {
+        font-size: 22px;
+        margin-bottom: 20px;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .product-card {
+        padding-bottom: 12px;
+        box-sizing: border-box;
+      }
+
+      .title {
+        font-size: 0.8rem;
+        min-height: 36px;
+      }
+
+      .action-button {
+        width: 90%;
+        padding: 6px 8px;
+        font-size: 0.75rem;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2px;
+      }
+
+      .action-button span {
+        text-align: center;
+      }
+
+      .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+      }
+
+      .footer-logo h3 {
+        margin-top: 0;
+      }
+
+      .discount,
+      .like,
+      .eye-btn {
+        opacity: 0;
+        transform: translateY(-8px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+
+      .product-card:active .discount,
+      .product-card:active .like,
+      .product-card:active .eye-btn {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <div class="header">
+    <a href="#" class="logo">BR PHONE SHOP</a>
+    <ul class="links">
+      <li><a href="index-kh.html" style="font-family: Khmer OS Siemreap;">ទំព័រដើម</a></li>
+      <li>
+        <a href="#" style="font-family: Khmer OS Siemreap;">ទូរស័ព្ទ<i class="las la-angle-down"></i></a>
+        <div class="dropdown">
+          <ul>
+            <li><a href="clothes-g-kh.html" style="font-family: Khmer OS Siemreap;">អាយហ្វូន</a></li>
+            <li><a href="cap-kh.html" style="font-family: Khmer OS Siemreap;">អប់ពរ</a></li>
+            <li><a href="bag-g-kh.html" style="font-family: Khmer OS Siemreap;">វីវរ</a></li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <a href="#" style="font-family: Khmer OS Siemreap;">ថេបប្លេត <i class="las la-angle-down"></i></a>
+        <div class="dropdown">
+          <ul>
+            <li><a href="clothes-b-kh.html" style="font-family: Khmer OS Siemreap;">ម៉េកប៊ុក</a></li>
+            <li><a href="cap-kh.html" style="font-family: Khmer OS Siemreap;">ថេបប្លេត​ OPPO</a></li>
+            <li><a href="bag-b-kh.html" style="font-family: Khmer OS Siemreap;">ថេបប្លេត VIVO</a></li>
+          </ul>
+        </div>
+      </li>
+      <li><a href="contact-kh.html" style="font-family: Khmer OS Siemreap;">ទំនាក់ទំនង</a></li>
+
+      <!-- flag  -->
+      <li>
+        <a href="#"><img src="english.png" alt="English" class="lang-flag"> EN <i class="las la-angle-down"></i></a>
+        <div class="dropdown">
+          <ul>
+            <li><a href="index.html"><img src="english.png" alt="English" class="lang-flag"> EN</a></li>
+            <li><a href="index-kh.html"><img src="khmer flag.png" alt="Khmer" class="lang-flag"> KH</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+
+    <div class="icon">
+      <!-- Icon User -->
+      <a href="#" class="icon-wrapper">
+        <i class="las la-user"></i>
+      </a>
+
+      <!-- Icon Heart-->
+      <a href="#" class="icon-wrapper">
+        <i class="lar la-heart"></i>
+        <span class="count">0</span>
+      </a>
+
+      <!-- Icon Shopping -->
+      <a href="#" class="icon-wrapper">
+        <i class="las la-shopping-cart"></i>
+        <span class="count">0</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- BANNER -->
+    <div class="slide">
+      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+            aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+            aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+            aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="banner phone/baner1.jpg" class="d-block w-100" alt="Banner 1">
+          </div>
+          <div class="carousel-item">
+            <img src="banner phone/baner5.jpg" class="d-block w-100" alt="Banner 2">
+          </div>
+          <div class="carousel-item">
+            <img src="banner phone/baner3.jpg" class="d-block w-100" alt="Banner 3">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- NAME -->
+    <div class="name-brand">Iphone</div>
+
+    <!-- CARD -->
+    <div class="product-grid" style="font-family: Khmer OS Siemreap;">
+
+      <div class="product-card">
+        <span class="discount">-15%</span>
+        <button class="like">
+          <i class="lar la-heart"></i>
+        </button>
+        <button class="eye-btn">
+          <i class="lar la-eye"></i>
+        </button>
+        <div class="image-container">
+          <img src="phone/13 plus.jpg" alt="Double Denim">
+        </div>
+        <div class="brand">Apple</div>
+        <h3 class="title">Iphone 13 plus</h3>
+        <button class="action-button">
+          <span>ដាក់ចូលកន្ត្រក</span>
+          <span>$330.00</span>
+        </button>
+      </div>
+
+      <div class="product-card">
+        <span class="discount">-15%</span>
+        <button class="like">
+          <i class="lar la-heart"></i>
+        </button>
+        <button class="eye-btn">
+          <i class="lar la-eye"></i>
+        </button>
+        <div class="image-container">
+          <img src="phone/13 pro mix.jpg">
+        </div>
+        <div class="brand">Apple</div>
+        <h3 class="title">Iphone 13 Pro Max</h3>
+        <button class="action-button">
+          <span>ដាក់ចូលកន្ត្រក</span>
+          <span>$550.00</span>
+        </button>
+      </div>
+
+      <div class="product-card">
+        <span class="discount">-15%</span>
+        <button class="like">
+          <i class="lar la-heart"></i>
+        </button>
+        <button class="eye-btn">
+          <i class="lar la-eye"></i>
+        </button>
+        <div class="image-container">
+          <img src="phone/13 pro.jpg">
+        </div>
+        <div class="brand">Apple</div>
+        <h3 class="title">Iphone 13 pro</h3>
+        <button class="action-button">
+          <span>ដាក់ចូលកន្ត្រក</span>
+          <span>$400.00</span>
+        </button>
+      </div>
+
+      <div class="product-card">
+        <span class="discount">-15%</span>
+        <button class="like">
+          <i class="lar la-heart"></i>
+        </button>
+        <button class="eye-btn">
+          <i class="lar la-eye"></i>
+        </button>
+        <div class="image-container">
+          <img src="phone/14 pro mix (2).jpg">
+        </div>
+        <div class="brand">Apple</div>
+        <h3 class="title">Iphone 14 Pro Max</h3>
+        <button class="action-button">
+          <span>ដាក់ចូលកន្ត្រក</span>
+          <span>$599.00</span>
+        </button>
+      </div>
+
+      <div class="product-card">
+        <span class="discount">-20%</span>
+        <button class="like">
+          <i class="lar la-heart"></i>
+        </button>
+        <button class="eye-btn">
+          <i class="lar la-eye"></i>
+        </button>
+        <div class="image-container">
+          <img src="phone/14 pro.jpg">
+        </div>
+        <div class="brand">Apple</div>
+        <h3 class="title">Iphone 14 Pro</h3>
+        <button class="action-button">
+          <span>ដាក់ចូលកន្ត្រក</span>
+          <span>$550.00</span>
+        </button>
+      </div>
+
+      <div class="product-card">
+        <span class="discount">-20%</span>
+        <button class="like">
+          <i class="lar la-heart"></i>
+        </button>
+        <button class="eye-btn">
+          <i class="lar la-eye"></i>
+        </button>
+        <div class="image-container">
+          <img src="phone/15 plus.jpg">
+        </div>
+        <div class="brand">Apple</div>
+        <h3 class="title">Iphone 15 plus</h3>
+        <button class="action-button">
+          <span>ដាក់ចូលកន្ត្រក</span>
+          <span>$600.00</span>
+        </button>
+      </div>
+
+      <div class="product-card">
+        <span class="discount">-15%</span>
+        <button class="like">
+          <i class="lar la-heart"></i>
+        </button>
+        <button class="eye-btn">
+          <i class="lar la-eye"></i>
+        </button>
+        <div class="image-container">
+          <img src="phone/15 promix.jpg">
+        </div>
+        <div class="brand">Iphone</div>
+        <h3 class="title">Iphone 15 Pro Max</h3>
+        <button class="action-button">
+          <span>ដាក់ចូលកន្ត្រក</span>
+          <span>$650.00</span>
+        </button>
+      </div>
+
+      <div class="product-card">
+        <span class="discount">-15%</span>
+        <button class="like">
+          <i class="lar la-heart"></i>
+        </button>
+        <button class="eye-btn">
+          <i class="lar la-eye"></i>
+        </button>
+        <div class="image-container">
+          <img src="phone/16 plus.jpg">
+        </div>
+        <div class="brand">Apple</div>
+        <h3 class="title">Iphone 16 Plus</h3>
+        <button class="action-button">
+          <span>ដាក់ចូលកន្ត្រក</span>
+          <span>$680.00</span>
+        </button>
+      </div>
+
+      <div class="product-card">
+        <span class="discount">-15%</span>
+        <button class="like">
+          <i class="lar la-heart"></i>
+        </button>
+        <button class="eye-btn">
+          <i class="lar la-eye"></i>
+        </button>
+        <div class="image-container">
+          <img src="phone/16 pro mix.jpg">
+        </div>
+        <div class="brand">Apple</div>
+        <h3 class="title">Iphone 16 Pro Max</h3>
+        <button class="action-button">
+          <span>ដាក់ចូលកន្ត្រក</span>
+          <span>$700.00</span>
+        </button>
+      </div>
+
+      <div class="product-card">
+        <span class="discount">-15%</span>
+        <button class="like">
+          <i class="lar la-heart"></i>
+        </button>
+        <button class="eye-btn">
+          <i class="lar la-eye"></i>
+        </button>
+        <div class="image-container">
+          <img src="phone/16pro.jpg">
+        </div>
+        <div class="brand">Apple</div>
+        <h3 class="title">Iphone 16 Pro</h3>
+        <button class="action-button">
+          <span>ដាក់ចូលកន្ត្រក</span>
+          <span>$620.00</span>
+        </button>
+      </div>
+
+      <div class="product-card">
+        <span class="discount">-15%</span>
+        <button class="like">
+          <i class="lar la-heart"></i>
+        </button>
+        <button class="eye-btn">
+          <i class="lar la-eye"></i>
+        </button>
+        <div class="image-container">
+          <img src="phone/phone air.jpg">
+        </div>
+        <div class="brand">Apple</div>
+        <h3 class="title">Iphone Air</h3>
+        <button class="action-button">
+          <span>ដាក់ចូលកន្ត្រក</span>
+          <span>$300.00</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- NAME -->
+    <div class="name-brand mt-3">OPPO ANDROI</div>
+
+    <!-- CARD -->
+    <div class="product-grid" style="font-family: Khmer OS Siemreap;">
+
+      <div class="product-card">
+        <span class="discount">-15%</span>
+        <button class="eye-btn">
+          <i class="lar la-eye"></i>
+        </button>
+        <button class="like">
+          <i class="lar la-heart"></i>
+        </button>
+        <div class="image-container">
+          <img src="oppo/oppo1.jpg">
+        </div>
+        <div class="brand">OPPO</div>
+        <h3 class="title">OPPO RENER 7</h3>
+        <button class="action-button">
+          <span>ដាក់ចូលកន្ត្រក</span>
+          <span>$300.00</span>
+        </button>
+      </div>
+
+      <div class="product-card">
+        <span class="discount">-15%</span>
+        <button class="eye-btn">
+          <i class="lar la-eye"></i>
+        </button>
+        <button class="like">
+          <i class="lar la-heart"></i>
+        </button>
+        <div class="image-container">
+          <img src="oppo/oppo2.jpg">
+        </div>
+        <div class="brand">OPPO</div>
+        <h3 class="title">OPPO A7</h3>
+        <button class="action-button">
+          <span>ដាក់ចូលកន្ត្រក</span>
+          <span>$170.00</span>
+        </button>
+      </div>
+
+      <div class="product-card">
+        <span class="discount">-15%</span>
+        <button class="eye-btn">
+          <i class="lar la-eye"></i>
+        </button>
+        <button class="like">
+          <i class="lar la-heart"></i>
+        </button>
+        <div class="image-container">
+          <img src="oppo/oppo5.jpg">
+        </div>
+        <div class="brand">OPPO RENER7 </div>
+        <h3 class="title"></h3>
+        <button class="action-button">
+          <span>ដាក់ចូលកន្ត្រក</span>
+          <span>$330.00</span>
+        </button>
+      </div>
+
+      <div class="product-card">
+        <span class="discount">-15%</span>
+        <button class="eye-btn">
+          <i class="lar la-eye"></i>
+        </button>
+        <button class="like">
+          <i class="lar la-heart"></i>
+        </button>
+        <div class="image-container">
+          <img src="oppo/oppo6.jpg">
+        </div>
+        <div class="brand">OPPO</div>
+        <h3 class="title">OPPO RENER7 PINK</h3>
+        <button class="action-button">
+          <span>ដាក់ចូលកន្ត្រក</span>
+          <span>$350.00</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- NAME -->
+    <div class="name-brand mt-3">MACBOOK</div>
+
+    <!-- CARD -->
+    <div class="product-grid" style="font-family: Khmer OS Siemreap;">
+
+      <div class="product-card">
+        <span class="discount">-15%</span>
+        <button class="eye-btn">
+          <i class="lar la-eye"></i>
+        </button>
+        <button class="like">
+          <i class="lar la-heart"></i>
+        </button>
+        <div class="image-container">
+          <img src="mac/mac12pro.jpg">
+        </div>
+        <div class="brand">IOS</div>
+        <h3 class="title">MACBOOK 12 PRO</h3>
+        <button class="action-button">
+          <span>ដាក់ចូលកន្ត្រក</span>
+          <span>$250.00</span>
+        </button>
+      </div>
+
+      <div class="product-card">
+        <span class="discount">-15%</span>
+        <button class="eye-btn">
+          <i class="lar la-eye"></i>
+        </button>
+        <button class="like">
+          <i class="lar la-heart"></i>
+        </button>
+        <div class="image-container">
+          <img src="mac/mac16pro.jpg">
+        </div>
+        <div class="brand">IOS</div>
+        <h3 class="title">MACBOOK 16 PRO</h3>
+        <button class="action-button">
+          <span>ដាក់ចូលកន្ត្រក</span>
+          <span>$500.00</span>
+        </button>
+      </div>
+
+      <div class="product-card">
+        <span class="discount">-15%</span>
+        <button class="eye-btn">
+          <i class="lar la-eye"></i>
+        </button>
+        <button class="like">
+          <i class="lar la-heart"></i>
+        </button>
+        <div class="image-container">
+          <img src="mac/mac17pro.jpg">
+        </div>
+        <div class="brand">IOS</div>
+        <h3 class="title">MACBOOK 17 PRO</h3>
+        <button class="action-button">
+          <span>ដាក់ចូលកន្ត្រក</span>
+          <span>$800.00</span>
+        </button>
+      </div>
+
+      <div class="product-card">
+        <span class="discount">-15%</span>
+        <button class="eye-btn">
+          <i class="lar la-eye"></i>
+        </button>
+        <button class="like">
+          <i class="lar la-heart"></i>
+        </button>
+        <div class="image-container">
+          <img src="mac/Macairm2.jpg">
+        </div>
+        <div class="brand">IOS</div>
+        <h3 class="title">MACBOOK AIRM2</h3>
+        <button class="action-button">
+          <span>ដាក់ចូលកន្ត្រក</span>
+          <span>$700.00</span>
+        </button>
+      </div>
+
+      <div class="product-card">
+        <span class="discount">-15%</span>
+        <button class="eye-btn">
+          <i class="lar la-eye"></i>
+        </button>
+        <button class="like">
+          <i class="lar la-heart"></i>
+        </button>
+        <div class="image-container">
+          <img src="mac/mack16''red.jpg">
+        </div>
+        <div class="brand">IOS</div>
+        <h3 class="title">MACBOOK 16'</h3>
+        <button class="action-button">
+          <span>ដាក់ចូលកន្ត្រក</span>
+          <span>$850.00</span>
+        </button>
+      </div>
+
+      <div class="product-card">
+        <span class="discount">-15%</span>
+        <button class="eye-btn">
+          <i class="lar la-eye"></i>
+        </button>
+        <button class="like">
+          <i class="lar la-heart"></i>
+        </button>
+        <div class="image-container">
+          <img src="mac/macM1.jpg">
+        </div>
+        <div class="brand">IOS</div>
+        <h3 class="title">MACBOOK M1</h3>
+        <button class="action-button">
+          <span>ដាក់ចូលកន្ត្រក</span>
+          <span>$750.00</span>
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-logo">
+        <h3>BR PHONE SHOP</h3>
+      </div>
+
+      <div class="footer-column" style="font-family: Khmer OS Siemreap;">
+        <h3>ទិញទំនិញ</h3>
+        <ul>
+          <li><a href="index-kh.html">ទំព័រដើម</a></li>
+          <li><a href="clothes-g-kh.html">ទូរស័ព្ទ</a></li>
+          <li><a href="clothes-b-kh.html">ម៉េកប៊ុក</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column"  style="font-family: Khmer OS Siemreap;">
+        <h3>ទំនិញលក់ដាច់</h3>
+        <ul>
+          <li><a href="clothes-kh.html">អាយហ្វូន</a></li>
+          <li><a href="cap-kh.html">អប់ពរ</a></li>
+          <li><a href="bag-kh.html">ម៉េកប៊ុក</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column" style="font-family: Khmer OS Siemreap;">
+        <h3>អំពីយើង</h3>
+        <ul>
+          <li><a href="contact.html" style="font-family: Khmer OS Siemreap;">ទំនាក់ទំនង</a></li>
+          <li><a href="https://www.facebook.com/share/1Dg2681PiF/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a></li>
+          <li><a href="https://www.tiktok.com/@.user873622" target="_blank" rel="noopener">TikTok</a></li>
+          <li><a href="https://www.instagram.com/astroo_o66?cplk=aXAycXVvenZ6emd3&utm_source=qr" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom" style="font-family: Khmer OS Siemreap;">
+      <p>&copy; 2026 - BR PHONE SHOP. រក្សាសិទ្ធិគ្រប់យ៉ាង។.</p>
+    </div>
+  </footer>
+</body>
+
+</html>
